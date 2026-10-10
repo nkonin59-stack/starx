@@ -1,0 +1,1 @@
+{"name":"starx-deploy","private":true,"type":"module","scripts":{"build":"npm --prefix frontend install && npm --prefix frontend run build","deploy":"npm run build && wrangler deploy"},"devDependencies":{"wrangler":"^4.40.0"}}

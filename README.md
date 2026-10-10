@@ -1,29 +1,28 @@
-# StarX — Telegram Mini App starter
+# StarX Mini App — полный стартовый проект
 
-Starter project for deploying the StarX frontend and Python API/bot on Render.
+Тёмный интерфейс StarX с золотым акцентом. Включены режимы: главная, задания, мини-игры (рулетка, мины, краш), билетики, розыгрыши, рейтинг, NFT-маркет, профиль и демонстрационная админ-панель.
 
-## Included
-- React + TypeScript + Vite frontend with dark/gold StarX styling
-- Market grid with price sorting (low-to-high / high-to-low) and search
-- FastAPI backend with demo catalog and admin price update endpoint
-- Optional Telegram bot polling with aiogram
-- Render Blueprint (`render.yaml`)
+## Локальный запуск
+1. Установи Node.js 20 или новее.
+2. В терминале открой папку `frontend`.
+3. Выполни `npm install`.
+4. Выполни `npm run dev`.
+5. Для production-проверки: `npm run build`.
 
-## Important
-This is a starter foundation, not a production marketplace. Catalog entries are demo data; the uploaded screenshots are not imported as image assets yet. Real marketplace listings and live prices require an authorized data source/API. Do not represent stale or demo prices as live market prices.
-Real Stars payments, withdrawals, randomized prize draws, and wagering games are not enabled in this starter.
+## Cloudflare Workers & Pages
+Проект настроен как Cloudflare Worker со статическими ассетами через корневой `wrangler.jsonc`.
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Root directory: `/`
 
-## Deploy
-1. Upload this folder's contents to your GitHub repository `nkonin59-stack/starx`.
-2. In Render, choose **New + → Blueprint**, connect the repository, and deploy.
-3. Set `BOT_TOKEN` for the bot if you want bot polling enabled.
-4. Set `ADMIN_TOKEN` to a long random secret before using the admin endpoint.
-5. After deploy, set the frontend `VITE_API_URL` to the API service URL and redeploy the static site if Render doesn't inject it automatically.
+Подключение репозитория должно иметь разрешение GitHub в Cloudflare. После изменения файлов запусти новый deployment.
 
-## Admin API
-`POST /api/admin/prices` with header `X-Admin-Token: <ADMIN_TOKEN>`:
-```json
-{"items":[{"id":"sample-1","price_stars":490}]}
-```
+## Важно
+Это рабочий интерактивный демоинтерфейс. Баланс, игры, билетики и профиль хранятся только в состоянии страницы и сбрасываются после перезагрузки. Админ-панель демонстрационная и не защищена серверной авторизацией. Реальные Telegram Stars-платежи, розыгрыши, задания с проверкой подписки, NFT-листинги/покупки и сохранение пользователей требуют backend и проверок на сервере. Цены NFT в каталоге демонстрационные, не являются актуальными котировками.
 
-This starter uses in-memory demo catalog data. It resets on redeploy/restart. Use PostgreSQL before storing real user balances, tickets, inventory, or transactions.
+## Структура
+- `frontend/` — React + TypeScript + Vite Mini App.
+- `frontend/public/assets/` — PNG-графика.
+- `backend/` — пример FastAPI API и SQLite.
+- `bot/` — пример Telegram-бота на aiogram 3.
+- `wrangler.jsonc` — конфигурация деплоя Cloudflare Worker static assets.
