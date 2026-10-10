@@ -2,22 +2,20 @@ services:
   - type: web
     name: starx-api
     runtime: python
-    plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.12.8
       - key: BOT_TOKEN
         sync: false
       - key: ADMIN_TOKEN
         sync: false
+      - key: MINI_APP_URL
+        value: https://starx-miniapp.onrender.com
 
   - type: web
     name: starx-miniapp
     runtime: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
