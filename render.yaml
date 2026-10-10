@@ -2,23 +2,26 @@ services:
   - type: web
     name: starx-api
     runtime: python
+    plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: BOT_TOKEN
+      - key: TELEGRAM_BOT_TOKEN
         sync: false
-      - key: ADMIN_TOKEN
+      - key: ADMIN_TELEGRAM_IDS
         sync: false
-      - key: MINI_APP_URL
-        value: https://starx-miniapp.onrender.com
-
-  - type: web
-    name: starx-miniapp
-    runtime: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    envVars:
-      - key: VITE_API_URL
-        value: https://starx-api.onrender.com
+      - key: CORS_ORIGINS
+        value: https://starx.nkonin59.workers.dev
+      - key: PUBLIC_API_URL
+        sync: false
+      - key: STARX_DB
+        value: /var/data/starx.sqlite3
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: DEV_AUTH
+        value: "false"
+    disk:
+      name: starx-data
+      mountPath: /var/data
+      sizeGB: 1

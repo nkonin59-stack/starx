@@ -1,6 +1,7 @@
 node_modules/
+frontend/node_modules/
 frontend/dist/
+backend/__pycache__/
+backend/starx.sqlite3
+backend/uploads/*
 .env
-*.sqlite3
-__pycache__/
-.venv/
